@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/apikey.dart';
 import 'package:flutter_application_1/data/tickets.dart';
@@ -8,7 +8,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 TextEditingController input = TextEditingController();
 String answer = "";
-Future<int> getscore(String answer, int id) async {
+Future<String> getscore(String answer, int id) async {
   ApiKey.load();
   String key = ApiKey.apiKey;
   OpenAI.baseUrl = "https://api.zukijourney.com";
@@ -27,7 +27,7 @@ Future<int> getscore(String answer, int id) async {
       ),
     ],
   );
-  return int.parse(completion.choices[0].toString());
+  return Future.value(completion.choices[0].toString());
 }
 
 bool recording = false;
@@ -116,7 +116,6 @@ class _TestState extends State<Test> {
               children: [
                 TextButton(
                   onPressed: () async {
-                    // Marking the function as async
                     if (!recording) {
                       bool available = await _speech.initialize().catchError((
                         error,
@@ -158,7 +157,19 @@ class _TestState extends State<Test> {
                               title: Text("ИИ обрабатывает ответ"),
                             ),
                       );
-                      int score = await getscore(recognizedText, widget.id);
+                      String scoreString = await getscore(
+                        recognizedText,
+                        widget.id,
+                      );
+                      int score = 0;
+                      print(scoreString);
+                      for (int i = 207; i < scoreString.length; i++) {
+                        if (scoreString[i] == ')') {
+                          break;
+                        }
+                        score *= 10;
+                        score += int.parse(scoreString[i]);
+                      }
                       Navigator.pop(context);
                       Navigator.push(
                         context,
@@ -208,10 +219,23 @@ class _TestState extends State<Test> {
                                                 ),
                                               ),
                                         );
-                                        int score = await getscore(
-                                          answer,
+                                        String scoreString = await getscore(
+                                          recognizedText,
                                           widget.id,
                                         );
+                                        int score = 0;
+                                        print(scoreString);
+                                        for (
+                                          int i = 207;
+                                          i < scoreString.length;
+                                          i++
+                                        ) {
+                                          if (scoreString[i] == ')') {
+                                            break;
+                                          }
+                                          score *= 10;
+                                          score += int.parse(scoreString[i]);
+                                        }
                                         Navigator.pop(context);
                                         Navigator.push(
                                           context,

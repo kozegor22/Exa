@@ -62,7 +62,7 @@ class _TestDialogState extends State<TestDialog> {
               (context) => AlertDialog(
                 title: Text("Номер билета"),
                 content: Column(
-                  mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
                       controller: input,
