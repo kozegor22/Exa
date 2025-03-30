@@ -209,7 +209,8 @@ class _TestState extends State<Test> {
                                     TextButton(
                                       onPressed: () async {
                                         answer = input.text;
-                                        Navigator.of(context).pop;
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
                                         showDialog(
                                           context: context,
                                           builder:

@@ -75,7 +75,36 @@ class HystoryHome extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  ApiKey.save(input.text);
+                  if (input.text == "") {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: Text("Введи ключ"),
+                            content: TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Ок"),
+                            ),
+                          ),
+                    );
+                  } else {
+                    ApiKey.save(input.text);
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: Text("Ключ успешно сохранён"),
+                            content: TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Ок"),
+                            ),
+                          ),
+                    );
+                  }
                 },
                 child: Text("Сохранить"),
               ),
@@ -88,14 +117,13 @@ class HystoryHome extends StatelessWidget {
                         (context) => AlertDialog(
                           title: Text(ApiKey.apiKey),
                           content: TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Ок"),
-                              ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Ок"),
+                          ),
                         ),
                   );
-                  
                 },
                 child: Text("Посмотреть ключ"),
               ),
