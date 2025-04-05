@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/apikey.dart';
+import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/data/hystory_learned.dart';
 import 'package:flutter_application_1/pages/home.dart';
-import 'package:flutter_application_1/pages/hystory/completed_list.dart';
-import 'package:flutter_application_1/pages/hystory/hystory_home.dart';
-import 'package:flutter_application_1/pages/hystory/learn/learn_dialog.dart';
+import 'package:flutter_application_1/pages/hystory/learned_list.dart';
 import 'package:flutter_application_1/pages/hystory/test/results.dart';
-import 'package:flutter_application_1/pages/hystory/test/test_dialog.dart';
 import 'package:flutter_application_1/pages/russian/russian_home.dart';
+import 'package:flutter_application_1/pages/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
   ApiKey.load;
   HystoryLearned.loadLearned();
-
 }
 
 class MyApp extends StatefulWidget {
@@ -23,6 +21,13 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+Widget showWelcomeScreen() {
+  if (FirstTime.firstTime) {
+    return WelcomeScreen();
+  }
+  return Home();
+}
+
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -30,19 +35,18 @@ class _MyAppState extends State<MyApp> {
     HystoryLearned.loadLearned();
     ApiKey.load;
     setState(() {});
+    FirstTime.load();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: showWelcomeScreen(),
       routes: {
-        'completed_list': (context) => CompletedList(),
-        'learn_dialog': (context) => LearnDialog(),
-        'test_dialog': (context) => TestDialog(),
+        'home': (context) => Home(),
+        'learned_list': (context) => CompletedList(),
         'results_debug': (context) => Results(id: 1, score: 90),
-        'hystory_home': (context) => HystoryHome(),
         'russian_home': (context) => RussianHome(),
       },
     );

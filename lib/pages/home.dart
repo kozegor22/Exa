@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/hystory/home/hystory_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -8,85 +9,58 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("appname"), Icon(Icons.favorite)],),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Домашняя")],
+        ),
         backgroundColor: Colors.deepPurpleAccent,
+        leading: null,
+        automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: [
-          Expanded(child: Text("Example text")),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'hystory_home');
-                },
-                child: Text("История"),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'russian_home');
-                  showDialog(
-                    context: context,
-                    builder:
-                        (builder) => AlertDialog(
-                          title: Text(
-                            "Находится в разработке и не имеет(наверно) функционала",
-                          ),
-                          content: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Ок"),
-                          ),
-                        ),
-                  );
-                },
-                child: Text("Рус яз"),
-              ),
-              TextButton(onPressed: () {
-
-                showDialog(
-                    context: context,
-                    builder:
-                        (builder) => AlertDialog(
-                          title: Text(
-                            "В разработке",
-                          ),
-                          content: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Ок"),
-                          ),
-                        ),
-                  );
-              }, child: Text("Бел яз")),
-              TextButton(onPressed: () {
-                showDialog(
-                    context: context,
-                    builder:
-                        (builder) => AlertDialog(
-                          title: Text(
-                            "В разработке",
-                          ),
-                          content: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Ок"),
-                          ),
-                        ),
-                  );
-              }, child: Text("Матем")),
-            ],
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: Colors.blue,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.book),
+             icon: Icon(Icons.book_outlined),
+            label: "История",
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.book),
+            icon: Icon(Icons.book_outlined),
+            label: "Русск. яз.",
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.book),
+            icon: Icon(Icons.book_outlined),
+            label: "Бел. яз.",
+          ),
+          NavigationDestination(
+             selectedIcon: Icon(Icons.calculate),
+            icon: Icon(Icons.calculate_outlined),
+            label: "Математика",
           ),
         ],
       ),
+      
+      body:
+          <Widget>[
+            HystoryHome(),
+            Column(children: [Text("$currentPageIndex")]),
+            Column(children: [Text("$currentPageIndex")]),
+            Column(children: [Text("$currentPageIndex")]),
+          ][currentPageIndex],
     );
   }
 }

@@ -23,8 +23,8 @@ class _MyWidgetState extends State<CompletedList> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Здесь можно проверить и отметить изученные билеты"),
+            padding: const EdgeInsets.all(12.0),
+            child: Text("Здесь можно проверить и отметить изученные билеты",style: TextStyle(fontSize: 20,height: 1.4),),
           ),
           Expanded(
             child: GridView.builder(
