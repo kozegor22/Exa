@@ -78,37 +78,90 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                bool requestFailed = false;
-                String key = input.text;
-                if (key != "") {
-                  OpenAI.baseUrl = "https://api.zukijourney.com";
-                  OpenAI.apiKey = key;
-                  try {
-                    await OpenAI.instance.chat.create(
-                      model: "gpt-4o",
-                      messages: [
-                        OpenAIChatCompletionChoiceMessageModel(
-                          content: [
-                            OpenAIChatCompletionChoiceMessageContentItemModel.text(
-                              "Выведи мне число 911 и больше ничего",
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    FirstTime.save(false);
+                    Navigator.pushNamed(context, 'home');
+                  },
+                  child: Text("Debug continue"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    bool requestFailed = false;
+                    String key = input.text;
+                    if (key != "") {
+                      OpenAI.baseUrl = "https://api.zukijourney.com";
+                      OpenAI.apiKey = key;
+                      try {
+                        await OpenAI.instance.chat.create(
+                          model: "gpt-4o",
+                          messages: [
+                            OpenAIChatCompletionChoiceMessageModel(
+                              content: [
+                                OpenAIChatCompletionChoiceMessageContentItemModel.text(
+                                  "Выведи мне число 911 и больше ничего",
+                                ),
+                              ],
+                              role: OpenAIChatMessageRole.user,
                             ),
                           ],
-                          role: OpenAIChatMessageRole.user,
-                        ),
-                      ],
-                    );
-                  } on RequestFailedException catch (e) {
-                    if (e.statusCode == 401) {
-                      requestFailed = true;
+                        );
+                      } on RequestFailedException catch (e) {
+                        if (e.statusCode == 401) {
+                          requestFailed = true;
+                          showDialog(
+                            context: context,
+                            builder:
+                                (context) => AlertDialog(
+                                  title: Text("Неверный ключ"),
+                                  content: TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ок"),
+                                  ),
+                                ),
+                          );
+                        } else {
+                          requestFailed = true;
+                          showDialog(
+                            context: context,
+                            builder:
+                                (context) => AlertDialog(
+                                  title: Text("${e.statusCode}"),
+                                  content: Text(
+                                    "${e.message}"
+                                    "Произошла неиожиданная ошибка",
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("Ок"),
+                                    ),
+                                  ],
+                                ),
+                          );
+                        }
+                      }
+                      if (!requestFailed) {
+                        FirstTime.save(false);
+                        Navigator.pushNamed(context, 'home');
+                      }
+                    } else {
                       showDialog(
                         context: context,
                         builder:
                             (context) => AlertDialog(
-                              title: Text("Неверный ключ"),
+                              title: Text("Введи ключ"),
                               content: TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -117,51 +170,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                       );
-                    } else {
-                      requestFailed = true;
-                      showDialog(
-                        context: context,
-                        builder:
-                            (context) => AlertDialog(
-                              title: Text("${e.statusCode}"),
-                              content: Text(
-                                "${e.message}"
-                                "Произошла неиожиданная ошибка",
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text("Ок"),
-                                ),
-                              ],
-                            ),
-                      );
                     }
-                  }
-                  if (!requestFailed) {
-                    FirstTime.save(false);
-                    Navigator.pushNamed(context,'home');
-                  }
-                } else {
-                  showDialog(
-                    context: context,
-                    builder:
-                        (context) => AlertDialog(
-                          title: Text("Введи ключ"),
-                          content: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Ок"),
-                          ),
-                        ),
-                  );
-                }
-              },
-              child: Text("Сохранить и продолжить"),
-            ),
+                  },
+                  child: Text("Сохранить и продолжить"),
+                ),
+              ),
+            ],
           ),
         ],
       ),

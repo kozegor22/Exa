@@ -55,31 +55,53 @@ class _LearnState extends State<Learn> {
       ),
       body: Column(
         children: [
-          Expanded(child: ListView(children: [Text("${tickets[widget.id]}")])),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tickets[widget.id]![0],
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    tickets[widget.id]![1],
+                    style: TextStyle(fontSize: 16, height: 1.4),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                  onPressed: () {
-                    HystoryLearned.hystoryLearned[widget.id - 1] = true;
-                    HystoryLearned.saveLearned();
-                    Navigator.pop(context);
-                  },
-                  child: Text("Изучил"),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      HystoryLearned.hystoryLearned[widget.id - 1] = true;
+                      HystoryLearned.saveLearned();
+                      Navigator.pop(context);
+                    },
+                    child: Text("Изучил"),
+                  ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Test(id: widget.id),
-                      ),
-                    );
-                  },
-                  child: Text("Проверить"),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Test(id: widget.id),
+                        ),
+                      );
+                    },
+                    child: Text("Проверить"),
+                  ),
                 ),
               ],
             ),

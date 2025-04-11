@@ -48,6 +48,7 @@ dev_dependencies:
   url_launcher: ^6.2.5
   dart_openai: ^5.1.0
   speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

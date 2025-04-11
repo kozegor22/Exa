@@ -20,7 +20,7 @@ Future<String> getscore(String answer, int id) async {
       OpenAIChatCompletionChoiceMessageModel(
         content: [
           OpenAIChatCompletionChoiceMessageContentItemModel.text(
-            "Сравни эти два текста по содержанию и дай оценку от 0 до 100 и больше ничего тексты отделены знаком \"|\" | $answer |   | ${tickets[id]} | если не можешь ответить выдай число 101",
+            "Сравни эти два текста по содержанию и дай оценку от 0 до 100 и больше ничего тексты отделены знаком \"|\" | $answer |   | ${tickets[id]![1]} | если не можешь ответить выдай число 101",
           ),
         ],
         role: OpenAIChatMessageRole.user,

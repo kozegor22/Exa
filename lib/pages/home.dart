@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/hystory/home/hystory_home.dart';
+import 'package:flutter_application_1/pages/russian/russian_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Text("Домашняя")],
         ),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.blueAccent,
         leading: null,
         automaticallyImplyLeading: false,
       ),
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
       body:
           <Widget>[
             HystoryHome(),
-            Column(children: [Text("$currentPageIndex")]),
+            Column(children: [RussianHome()]),
             Column(children: [Text("$currentPageIndex")]),
             Column(children: [Text("$currentPageIndex")]),
           ][currentPageIndex],
