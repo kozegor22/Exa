@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/russian_dictations.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
-
 final ImagePicker picker = ImagePicker();
 int dictTimes = 0;
 final FlutterTts flutterTts = FlutterTts();
