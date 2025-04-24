@@ -14,52 +14,79 @@ class RussianHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextButton(
-            onPressed: () async {
-              await showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: Text("Номер диктанта"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            controller: input,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
+      children: [
+        TextButton(
+          onPressed: () async {
+            await showDialog(
+              context: context,
+              builder:
+                  (context) => AlertDialog(
+                    title: Text("Номер диктанта"),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: input,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              int id;
-                              if (input.text == "") {
-                                id = Random().nextInt(russianDictations.length);
-                              }
-                              id = int.parse(input.text);
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            int id;
+                            if (input.text == "") {
+                              id = Random().nextInt(russianDictations.length-1)+1;
+                            }
+                            id = int.parse(input.text);
+                            if (id <= 0 || id > russianDictations.length) {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (context) => AlertDialog(
+                                      title: Text("Такого диктанта нет"),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Ок"),
+                                        ),
+                                      ],
+                                    ),
+                              );
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RussianTest(id: id),
                                 ),
                               );
-                            },
-                            child: Text("Выбрать"),
-                          ),
-                        ],
-                      ),
+                            }
+                          },
+                          child: Text("Выбрать"),
+                        ),
+                      ],
                     ),
-              );
-            },
-            child: Text("Выбрать самому"),
-          ),
-          TextButton(onPressed: () {}, child: Text("Случайный")),
-        ],
-      );
+                  ),
+            );
+          },
+          child: Text("Выбрать самому"),
+        ),
+        TextButton(
+          onPressed: () {
+            final id = Random().nextInt(russianDictations.length-1)+1;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RussianTest(id: id)),
+            );
+          },
+          child: Text("Случайный"),
+        ),
+      ],
+    );
   }
 }

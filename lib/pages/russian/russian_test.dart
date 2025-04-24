@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/russian_dictations.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
 
+final ImagePicker picker = ImagePicker();
 int dictTimes = 0;
 final FlutterTts flutterTts = FlutterTts();
 
@@ -16,6 +19,13 @@ class RussianTest extends StatefulWidget {
 }
 
 class _RussianTestState extends State<RussianTest> {
+  @override
+  void initState() {
+    super.initState();
+    dictTimes = 0;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +69,13 @@ class _RussianTestState extends State<RussianTest> {
                     focus: true,
                   );
                   dictTimes++;
-                  if (dictTimes == 3) {}
+                  if (dictTimes == 3) {
+                    final image = await picker.pickImage(
+                      source: ImageSource.camera,
+                    );
+                    final pathToImg = image!.path;
+                    
+                  }
                   setState(() {});
                 },
                 child: Icon(Icons.mic, size: 100),
