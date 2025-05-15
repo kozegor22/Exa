@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/data/apikey.dart';
+import 'package:flutter_application_1/scripts/check_api_key.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:dart_openai/dart_openai.dart';
 
 Future<void> launchURL() async {
   Uri url = Uri.parse('https://discord.gg/zukijourney');
@@ -84,7 +84,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    FirstTime.save(false);
+                    setState(() {
+                      ApiKey.save("zu-4d735eab2b2b0aa8c526974ba8c60e1f");
+                      FirstTime.save(false);
+                    });
+                    Navigator.pushNamed(context, 'home');
                     Navigator.pushNamed(context, 'home');
                   },
                   child: Text("Debug continue"),
@@ -94,66 +98,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    bool requestFailed = false;
                     String key = input.text;
                     if (key != "") {
-                      OpenAI.baseUrl = "https://api.zukijourney.com";
-                      OpenAI.apiKey = key;
-                      try {
-                        await OpenAI.instance.chat.create(
-                          model: "gpt-4o",
-                          messages: [
-                            OpenAIChatCompletionChoiceMessageModel(
-                              content: [
-                                OpenAIChatCompletionChoiceMessageContentItemModel.text(
-                                  "Выведи мне число 911 и больше ничего",
-                                ),
-                              ],
-                              role: OpenAIChatMessageRole.user,
-                            ),
-                          ],
-                        );
-                      } on RequestFailedException catch (e) {
-                        if (e.statusCode == 401) {
-                          requestFailed = true;
-                          showDialog(
-                            context: context,
-                            builder:
-                                (context) => AlertDialog(
-                                  title: Text("Неверный ключ"),
-                                  content: TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Ок"),
-                                  ),
-                                ),
-                          );
-                        } else {
-                          requestFailed = true;
-                          showDialog(
-                            context: context,
-                            builder:
-                                (context) => AlertDialog(
-                                  title: Text("${e.statusCode}"),
-                                  content: Text(
-                                    "${e.message}"
-                                    "Произошла неиожиданная ошибка",
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Ок"),
-                                    ),
-                                  ],
-                                ),
-                          );
-                        }
-                      }
-                      if (!requestFailed) {
-                        FirstTime.save(false);
+                      if (!await checkApiKey(input.text, context)) {
+                        setState(() {
+                          ApiKey.save(input.text);
+                          FirstTime.save(false);
+                        });
                         Navigator.pushNamed(context, 'home');
                       }
                     } else {

@@ -4,9 +4,8 @@ import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/data/hystory_learned.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/hystory/learned_list.dart';
-import 'package:flutter_application_1/pages/hystory/test/results.dart';
-import 'package:flutter_application_1/pages/russian/russian_home.dart';
-import 'package:flutter_application_1/pages/welcome_screen.dart';
+import 'package:flutter_application_1/settings/settings.dart';
+import 'package:flutter_application_1/welcome_screen/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,8 +45,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'home': (context) => Home(),
         'learned_list': (context) => CompletedList(),
-        'results_debug': (context) => Results(id: 1, score: 90),
-        'russian_home': (context) => RussianHome(),
+        'settings': (context) => Settings(),
       },
     );
   }

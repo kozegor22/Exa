@@ -21,6 +21,14 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.blueAccent,
         leading: null,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'settings');
+            },
+            icon: Icon(Icons.settings),
+          ),
+        ],
         automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: NavigationBar(
@@ -34,7 +42,7 @@ class _HomeState extends State<Home> {
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.book),
-             icon: Icon(Icons.book_outlined),
+            icon: Icon(Icons.book_outlined),
             label: "История",
           ),
           NavigationDestination(
@@ -48,13 +56,13 @@ class _HomeState extends State<Home> {
             label: "Бел. яз.",
           ),
           NavigationDestination(
-             selectedIcon: Icon(Icons.calculate),
+            selectedIcon: Icon(Icons.calculate),
             icon: Icon(Icons.calculate_outlined),
             label: "Математика",
           ),
         ],
       ),
-      
+
       body:
           <Widget>[
             HystoryHome(),

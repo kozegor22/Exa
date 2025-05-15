@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/russian_dictations.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:image_picker/image_picker.dart';
+
 final ImagePicker picker = ImagePicker();
 int dictTimes = 0;
 final FlutterTts flutterTts = FlutterTts();
@@ -73,6 +74,8 @@ class _RussianTestState extends State<RussianTest> {
                     );
                     final pathToImg = image!.path;
                     
+                    // ignore: avoid_print
+                    print(pathToImg);
                   }
                   setState(() {});
                 },

@@ -15,7 +15,13 @@ result<String>(score, id) {
 }
 
 class Results extends StatefulWidget {
-  const Results({super.key, required this.id, required this.score});
+  const Results({
+    super.key,
+    required this.id,
+    required this.score,
+    required this.inputType,
+  });
+  final bool inputType;
   final int id;
   final int score;
   @override
@@ -66,6 +72,10 @@ class _ResultsState extends State<Results> {
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    if (widget.inputType) {
+                      Navigator.of(context).pop();
+                    }
                   },
                   child: Text("Продолжить"),
                 ),
