@@ -4,8 +4,8 @@ import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/data/hystory_learned.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/hystory/learned_list.dart';
-import 'package:flutter_application_1/settings/settings.dart';
-import 'package:flutter_application_1/welcome_screen/welcome_screen.dart';
+import 'package:flutter_application_1/pages/settings/settings.dart';
+import 'package:flutter_application_1/pages/welcome_screen/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());

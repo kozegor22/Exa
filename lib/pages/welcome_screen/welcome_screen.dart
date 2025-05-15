@@ -80,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           Column(
             children: [
-              Padding(
+              /*Padding(
                 padding: EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
@@ -93,7 +93,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   },
                   child: Text("Debug continue"),
                 ),
-              ),
+              ),*/
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: ElevatedButton(

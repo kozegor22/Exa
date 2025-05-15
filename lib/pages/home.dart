@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
         ],
         automaticallyImplyLeading: false,
       ),
-      bottomNavigationBar: NavigationBar(
+      /*bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
             label: "Математика",
           ),
         ],
-      ),
+      ),*/
 
       body:
           <Widget>[
