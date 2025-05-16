@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/debug_mode.dart';
 import 'package:flutter_application_1/pages/hystory/home/hystory_home.dart';
 import 'package:flutter_application_1/pages/russian/russian_home.dart';
 
@@ -11,6 +12,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    DebugMode.load();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +32,23 @@ class _HomeState extends State<Home> {
         leading: null,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'settings');
+            onPressed: () async {
+              await Navigator.pushNamed(context, 'settings');
+              setState(() {});
             },
             icon: Icon(Icons.settings),
           ),
+          if (DebugMode.debugmode)
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'debug_menu');
+              },
+              icon: Icon(Icons.android),
+            ),
         ],
         automaticallyImplyLeading: false,
       ),
+
       /*bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -62,7 +80,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),*/
-
       body:
           <Widget>[
             HystoryHome(),

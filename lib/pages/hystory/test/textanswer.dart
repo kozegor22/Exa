@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/apikey.dart';
-import 'package:flutter_application_1/scripts/check_answer.dart';
+import 'package:flutter_application_1/scripts/history/check_answer.dart';
 
 final TextEditingController input = TextEditingController();
 

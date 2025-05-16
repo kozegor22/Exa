@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/apikey.dart';
+import 'package:flutter_application_1/data/debug_mode.dart';
+import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/scripts/check_api_key.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +19,8 @@ class _SettingsState extends State<Settings> {
   void initState() {
     super.initState();
     ApiKey.load();
+    DebugMode.load();
+    FirstTime.load();
     setState(() {});
   }
 
@@ -24,7 +28,53 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Настройки"),
+        title: GestureDetector(
+          child: Text("Настройки"),
+          onLongPress: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context2) => AlertDialog(
+                    title: Text("Включить Дебаг режим?"),
+                    content: Text(
+                      "Режим предназначен для разработки и ни как для использования обычным пользователем",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context2);
+                          setState(() {
+                            DebugMode.save(true);
+                            FirstTime.save(true);
+                          });
+
+                          showDialog(
+                            context: context,
+                            builder:
+                                (context) => AlertDialog(
+                                  title: Text("Ура Дебаг"),
+                                  content: TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ок"),
+                                  ),
+                                ),
+                          );
+                        },
+                        child: Text("Да!"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context2);
+                        },
+                        child: Text("Не не надо"),
+                      ),
+                    ],
+                  ),
+            );
+          },
+        ),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
       ),
@@ -131,6 +181,19 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
+            if (DebugMode.debugmode)
+              Column(//disable debug_mode
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        DebugMode.save(false);
+                      });
+                    },
+                    child: Text("disable debug_mode"),
+                  ),
+                ],
+              ),
           ],
         ),
       ),
