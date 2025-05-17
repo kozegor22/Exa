@@ -11,6 +11,7 @@ Future<List<String>> getAiResponce(
   BuildContext context,
 ) async {
   OpenAI.apiKey = apikey;
+  OpenAI.baseUrl = "https://api.zukijourney.com";
   bool requestFailed = false;
   final completion = await OpenAI.instance.chat.create(
     model: "gpt-4o",
@@ -28,7 +29,7 @@ Future<List<String>> getAiResponce(
   try {} on RequestFailedException catch (e) {
     if (e.statusCode == 401) {
       requestFailed = true;
-      showDialog(
+      await showDialog(
         context: context,
         builder:
             (context) => AlertDialog(
@@ -49,9 +50,10 @@ Future<List<String>> getAiResponce(
               ],
             ),
       );
+      Navigator.pop(context);
     } else {
       requestFailed = true;
-      showDialog(
+      await showDialog(
         context: context,
         builder:
             (context) => AlertDialog(

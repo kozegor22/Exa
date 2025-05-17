@@ -15,9 +15,9 @@ String grade(int score) {
     HystoryLearned.saveLearned();
     return "Хорошо :)";
   } else if (score >= 55 && score <= 74) {
-    return "Надо подучить :(";
+    return "Надо подучить -_-";
   }
-  return "Плохо -_-'";
+  return "Плохо :(";
 }
 
 class _ScorePageState extends State<ScorePage> {

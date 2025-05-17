@@ -12,6 +12,7 @@ void main() {
   runApp(const MyApp());
   ApiKey.load;
   HystoryLearned.loadLearned();
+  FirstTime.load();
 }
 
 class MyApp extends StatefulWidget {
@@ -21,8 +22,8 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-Widget showWelcomeScreen() {
-  if (FirstTime.firstTime) {
+Widget showWelcomeScreen(bool firstTime) {
+  if (firstTime) {
     return WelcomeScreen();
   }
   return Home();
@@ -34,20 +35,21 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     HystoryLearned.loadLearned();
     ApiKey.load;
-    setState(() {});
     FirstTime.load();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: showWelcomeScreen(),
+      home: showWelcomeScreen(FirstTime.firstTime),
       routes: {
         'home': (context) => Home(),
         'learned_list': (context) => CompletedList(),
         'settings': (context) => Settings(),
         'debug_menu': (context) => DebugMenu(),
+        'welcome_screen': (context) => WelcomeScreen(),
       },
     );
   }

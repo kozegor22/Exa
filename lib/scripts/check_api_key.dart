@@ -3,14 +3,16 @@
 import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 
+
 Future<bool> checkApiKey(String key, BuildContext context) async {
   bool requestState = false;
   OpenAI.baseUrl = "https://api.zukijourney.com";
   OpenAI.apiKey = key;
-  showDialog(
+  showAdaptiveDialog(
     context: context,
     builder: (context) => AlertDialog(title: Text("Проверка ключа")),
   );
+  
   try {
     await OpenAI.instance.chat.create(
       model: "gpt-4o",
@@ -26,10 +28,10 @@ Future<bool> checkApiKey(String key, BuildContext context) async {
       ],
     );
   } on RequestFailedException catch (e) {
+    Navigator.of(context).pop();
     if (e.statusCode == 401) {
-      Navigator.of(context).pop;
       requestState = true;
-      showDialog(
+      await showDialog(
         context: context,
         builder:
             (context) => AlertDialog(
@@ -46,9 +48,8 @@ Future<bool> checkApiKey(String key, BuildContext context) async {
             ),
       );
     } else {
-      Navigator.of(context).pop;
       requestState = true;
-      showDialog(
+      await showDialog(
         context: context,
         builder:
             (context) => AlertDialog(
@@ -68,7 +69,8 @@ Future<bool> checkApiKey(String key, BuildContext context) async {
             ),
       );
     }
+    return requestState;
   }
-  Navigator.of(context).pop;
+  Navigator.of(context).pop();
   return requestState;
 }

@@ -22,34 +22,37 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Домашняя")],
-        ),
-        backgroundColor: Colors.blueAccent,
-        leading: null,
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Navigator.pushNamed(context, 'settings');
-              setState(() {});
-            },
-            icon: Icon(Icons.settings),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text("Домашняя")],
           ),
-          if (DebugMode.debugmode)
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'debug_menu');
-              },
-              icon: Icon(Icons.android),
-            ),
-        ],
-        automaticallyImplyLeading: false,
-      ),
+          backgroundColor: Colors.blueAccent,
+          leading: null,
 
-      /*bottomNavigationBar: NavigationBar(
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await Navigator.pushNamed(context, 'settings');
+                setState(() {});
+              },
+              icon: Icon(Icons.settings),
+            ),
+            if (DebugMode.debugmode)
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'debug_menu');
+                },
+                icon: Icon(Icons.android),
+              ),
+          ],
+          automaticallyImplyLeading: false,
+        ),
+
+        /*bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;
@@ -80,13 +83,14 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),*/
-      body:
-          <Widget>[
-            HystoryHome(),
-            Column(children: [RussianHome()]),
-            Column(children: [Text("$currentPageIndex")]),
-            Column(children: [Text("$currentPageIndex")]),
-          ][currentPageIndex],
+        body:
+            <Widget>[
+              HystoryHome(),
+              Column(children: [RussianHome()]),
+              Column(children: [Text("$currentPageIndex")]),
+              Column(children: [Text("$currentPageIndex")]),
+            ][currentPageIndex],
+      ),
     );
   }
 }

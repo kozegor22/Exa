@@ -55,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   (context2) => AlertDialog(
                     title: Text("Включить Дебаг режим?"),
                     content: Text(
-                      "Режим предназначен для разработки(пропускает ввод ключа) и ни как для использования обычным пользователем",
+                      "Режим предназначен для разработки(пропускает ввод ключа) и ни как для использования обычным пользователем.Простым смертным вход запрещён!",
                     ),
                     actions: [
                       TextButton(
@@ -63,7 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Navigator.pop(context2);
                           setState(() {
                             DebugMode.save(true);
-                            FirstTime.save(true);
+                            FirstTime.save(false);
                           });
                           Navigator.pushNamed(context, 'home');
                           showDialog(
@@ -106,10 +106,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                 children: [
                   Text(
-                    "Я приложение помощник и помогу подготовиться тебу к экзаменам\n"
-                    "Но приложение использует ZukijourneyAPI для обработки ответов\n"
-                    "Который тебе придётся взять в их дискорде во вкладке Info_panels\n",
-                    style: TextStyle(fontSize: 20, height: 1.4),
+                    "Я приложение помощник и помогу подготовиться тебу к экзаменам.\n"
+                    "Но приложение использует ZukijourneyAPI для обработки ответов.\n"
+                    "Который тебе придётся взять в их дискорде во вкладке Info_panels.\n",
+                    style: TextStyle(fontSize: 18, height: 1.4),
                   ),
                 ],
               ),

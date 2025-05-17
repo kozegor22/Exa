@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/hystory/results/results.dart';
 import 'package:flutter_application_1/pages/hystory/test/textanswer.dart';
@@ -21,7 +23,7 @@ class _DebugMenuState extends State<DebugMenu> {
         children: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, 'home');
+              Navigator.pushNamed(context, 'welcome_screen');
             },
             child: Text("welcome_screen"),
           ),
