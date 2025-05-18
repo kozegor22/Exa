@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/hystory_best_answers.dart';
 import 'package:flutter_application_1/data/hystory_statistics.dart';
+import 'package:flutter_application_1/pages/hystory/results/results.dart';
 
 class Statistics extends StatefulWidget {
   const Statistics({super.key});
@@ -13,6 +15,7 @@ class _StatisticsState extends State<Statistics> {
   void initState() {
     super.initState();
     HystoryStatistics.load();
+    HystoryBestAnswers.load();
     setState(() {});
   }
 
@@ -26,22 +29,58 @@ class _StatisticsState extends State<Statistics> {
       body: Column(
         children: [
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-              ),
+            child: ListView.builder(
               itemCount: 25,
               itemBuilder:
-                  (context, index) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (HystoryStatistics.hystoryStats[index] > -1)
-                        Text(
-                          "${index + 1}:${HystoryStatistics.hystoryStats[index]}/100",
-                        )
-                      else
-                        Text("${index + 1}:Не проверен"),
-                    ],
+                  (context, index) => TextButton(
+                    onPressed: () {
+                      if (HystoryStatistics.hystoryStats[index] == -1) {
+                        showDialog(
+                          context: context,
+                          builder:
+                              (context) => AlertDialog(
+                                title: Text("Этот билет ещё не был проверен"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Понял"),
+                                  ),
+                                ],
+                              ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => Results(
+                                  id: index,
+                                  score: HystoryStatistics.hystoryStats[index],
+                                  inputType: false,
+                                  feedback:
+                                      HystoryBestAnswers
+                                          .hystoryBestAnswers[index],
+                                ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        if (HystoryStatistics.hystoryStats[index] > -1)
+                          Text(
+                            "Билет ${index + 1}:${HystoryStatistics.hystoryStats[index]}/100",
+                            style: TextStyle(fontSize: 20),
+                          )
+                        else
+                          Text(
+                            "Билет ${index + 1}:Не проверен",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                      ],
+                    ),
                   ),
             ),
           ),

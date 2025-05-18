@@ -11,25 +11,27 @@ Future<List<String>> getAiResponce(
   BuildContext context,
 ) async {
   OpenAI.apiKey = apikey;
-  OpenAI.baseUrl = "https://api.zukijourney.com";
   bool requestFailed = false;
-  final completion = await OpenAI.instance.chat.create(
-    model: "gpt-4o",
-    messages: [
-      OpenAIChatCompletionChoiceMessageModel(
-        content: [
-          OpenAIChatCompletionChoiceMessageContentItemModel.text(
-            "Точно следуй инструкциям.Ты учитель по истории и проверяшь ответ ученика по билету по истории Беларуси текст билета и ученика отделены знаком \"|\" ответ ученика: | $answer |  текст билета: | ${tickets[id]?[1]} | дай оценку по стобальной системе и поясни все ошибки также дай 1 строчкой число своей оценки и только его а дальше пояснение",
-          ),
-        ],
-        role: OpenAIChatMessageRole.user,
-      ),
-    ],
-  );
-  try {} on RequestFailedException catch (e) {
+  late OpenAIChatCompletionModel completion;
+  OpenAI.baseUrl = "https://api.zukijourney.com";
+  try {
+    completion = await OpenAI.instance.chat.create(
+      model: "gpt-4o",
+      messages: [
+        OpenAIChatCompletionChoiceMessageModel(
+          content: [
+            OpenAIChatCompletionChoiceMessageContentItemModel.text(
+              "Точно следуй инструкциям.Ты учитель по истории и проверяшь ответ ученика по билету по истории Беларуси текст билета и ученика отделены знаком \"|\" ответ ученика: | $answer |  текст билета: | ${tickets[id]?[1]} | дай оценку по стобальной системе и поясни все ошибки также дай 1 строчкой число своей оценки и только его а дальше пояснение",
+            ),
+          ],
+          role: OpenAIChatMessageRole.user,
+        ),
+      ],
+    );
+  } on RequestFailedException catch (e) {
     if (e.statusCode == 401) {
       requestFailed = true;
-      await showDialog(
+      showDialog(
         context: context,
         builder:
             (context) => AlertDialog(
@@ -50,10 +52,9 @@ Future<List<String>> getAiResponce(
               ],
             ),
       );
-      Navigator.pop(context);
     } else {
       requestFailed = true;
-      await showDialog(
+      showDialog(
         context: context,
         builder:
             (context) => AlertDialog(
@@ -80,7 +81,7 @@ Future<List<String>> getAiResponce(
   );
   if (requestFailed == false) {
     for (int i = 0; i < completion.choices[0].message.content!.length; i++) {
-      feedback[i] = completion.choices[0].message.content![0].text!;
+      feedback[i] = completion.choices[0].message.content![i].text!;
     }
     return feedback;
   }

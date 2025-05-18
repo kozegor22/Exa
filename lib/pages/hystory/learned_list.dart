@@ -44,6 +44,7 @@ class _MyWidgetState extends State<CompletedList> {
                           onChanged: (state) {
                             setState(() {
                               HystoryLearned.hystoryLearned[index] = state ?? false;
+                              HystoryLearned.saveLearned();
                             });
                           },
                         ),
@@ -51,12 +52,6 @@ class _MyWidgetState extends State<CompletedList> {
                     ],
                   ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              HystoryLearned.saveLearned();
-            },
-            child: Text("Сохранить"),
           ),
         ],
       ),

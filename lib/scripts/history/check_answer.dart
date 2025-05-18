@@ -19,7 +19,30 @@ Future<void> checkAnswer(
   if (aifeedback == [""]) {
     return;
   }
-  final int score = int.parse(aifeedback[0]);
+  int score = 0;
+  if (aifeedback.length == 1) {
+    for (int i = 0; i < 100; i++) {
+      try {
+        int add = int.parse(aifeedback[0][i]);
+        score *= 10;
+        score += add;
+      } on FormatException {
+        break;
+      } on RangeError {
+        break;
+      }
+    }
+    aifeedback[0] = aifeedback[0].replaceFirst(score.toString(), '');
+    while (true) {
+      if (aifeedback[0][0] == '\n') {
+        aifeedback[0] = aifeedback[0].replaceFirst('\n', '');
+      } else {
+        break;
+      }
+    }
+  } else {
+    score = int.parse(aifeedback[0]);
+  }
   Navigator.of(context, rootNavigator: true).pop();
   Navigator.push(
     context,

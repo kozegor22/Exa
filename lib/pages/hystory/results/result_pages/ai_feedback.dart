@@ -14,7 +14,7 @@ class _AiFeedbackState extends State<AiFeedback> {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: widget.feedback.length - 1,
+            itemCount: widget.feedback.length ,
             itemBuilder:
                 (context, index) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class _AiFeedbackState extends State<AiFeedback> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.feedback[index + 1],
+                        widget.feedback[index],
                         style: TextStyle(fontSize: 16, height: 1.4),
                       ),
                     ),
