@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter_application_1/data/tickets.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,26 @@ Future<List<String>> getAiResponce(
             ),
       );
     }
+  } on TimeoutException {
+    showDialog(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              title: Text("TimeoutExeption"),
+              content: Text(
+                
+                "Произошла неиожиданная ошибка",
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Ок"),
+                ),
+              ],
+            ),
+      );
   }
   List<String> feedback = List.filled(
     completion.choices[0].message.content!.length,

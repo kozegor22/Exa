@@ -63,22 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Navigator.pop(context2);
                           setState(() {
                             DebugMode.save(true);
-                            FirstTime.save(false);
                           });
-                          Navigator.pushNamed(context, 'home');
-                          showDialog(
-                            context: context,
-                            builder:
-                                (context) => AlertDialog(
-                                  title: Text("Ура Дебаг"),
-                                  content: TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Ок"),
-                                  ),
-                                ),
-                          );
                         },
                         child: Text("Да!"),
                       ),

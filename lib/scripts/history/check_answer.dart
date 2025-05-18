@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/hystory_best_answers.dart';
+import 'package:flutter_application_1/data/hystory_statistics.dart';
 import 'package:flutter_application_1/pages/hystory/results/results.dart';
 import 'package:flutter_application_1/scripts/history/get_ai_responce.dart';
 
@@ -34,9 +36,13 @@ Future<void> checkAnswer(
     }
     aifeedback[0] = aifeedback[0].replaceFirst(score.toString(), '');
     while (true) {
-      if (aifeedback[0][0] == '\n') {
-        aifeedback[0] = aifeedback[0].replaceFirst('\n', '');
-      } else {
+      try {
+        if (aifeedback[0][0] == '\n') {
+          aifeedback[0] = aifeedback[0].replaceFirst('\n', '');
+        } else {
+          break;
+        }
+      } on RangeError {
         break;
       }
     }
@@ -56,5 +62,11 @@ Future<void> checkAnswer(
           ),
     ),
   );
+  if (HystoryStatistics.hystoryStats[id - 1] < score) {
+    HystoryBestAnswers.hystoryBestAnswers[id - 1] = aifeedback;
+    HystoryBestAnswers.save();
+    HystoryStatistics.hystoryStats[id - 1] = score;
+    HystoryStatistics.save();
+  }
   return;
 }

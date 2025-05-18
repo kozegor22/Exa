@@ -19,8 +19,7 @@ class _ScorePageState extends State<ScorePage>
   late final AnimationController _controller;
   String grade(int score, id) {
     setState(() {
-      HystoryStatistics.hystoryStats[id] = score;
-      HystoryStatistics.save();
+      
     });
     if (score >= 85) {
       setState(() {

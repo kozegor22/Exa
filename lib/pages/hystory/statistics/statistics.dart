@@ -56,7 +56,7 @@ class _StatisticsState extends State<Statistics> {
                           MaterialPageRoute(
                             builder:
                                 (context) => Results(
-                                  id: index,
+                                  id: index+1,
                                   score: HystoryStatistics.hystoryStats[index],
                                   inputType: false,
                                   feedback:
