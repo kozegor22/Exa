@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/hystory_learned.dart';
 import 'package:flutter_application_1/pages/hystory/results/result_pages/ai_feedback.dart';
 import 'package:flutter_application_1/pages/hystory/results/result_pages/score_page.dart';
 
 int currentPageIndex = 0;
-result<String>(score, id) {
-  if (score >= 90) {
-    HystoryLearned.hystoryLearned[id - 1] = true;
-    HystoryLearned.saveLearned();
-    return "Замечательно";
-  } else if (score >= 65) {
-    HystoryLearned.hystoryLearned[id - 1] = true;
-    HystoryLearned.saveLearned();
-    return "Более менее";
-  }
-  return "Надо подучить";
-}
 
 class Results extends StatefulWidget {
   const Results({
@@ -68,7 +55,7 @@ class _ResultsState extends State<Results> {
           ][currentPageIndex],
       body:
           <Widget>[
-            ScorePage(score: widget.score),
+            ScorePage(score: widget.score, id: widget.id),
             AiFeedback(feedback: widget.feedback),
           ][currentPageIndex],
     );

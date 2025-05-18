@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/data/russian_dictations.dart';
-import 'package:flutter_application_1/pages/russian/russian_test.dart';
+import 'package:flutter_application_1/pages/languages/russian/russian_test.dart';
 
 TextEditingController input = TextEditingController();
 
-class RussianHome extends StatelessWidget {
-  const RussianHome({super.key});
+class LanguagesHome extends StatelessWidget {
+  const LanguagesHome({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/debug_mode.dart';
+import 'package:flutter_application_1/data/first_time.dart';
+import 'package:flutter_application_1/pages/debug_menu/debug_menu.dart';
 import 'package:flutter_application_1/pages/hystory/home/hystory_home.dart';
-import 'package:flutter_application_1/pages/russian/russian_home.dart';
+import 'package:flutter_application_1/pages/languages/languages_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,7 +19,22 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     DebugMode.load();
+    FirstTime.load();
     setState(() {});
+  }
+
+  Color debugcolor() {
+    if (currentPageIndex == 4) {
+      return Colors.black;
+    }
+    return Colors.blueAccent;
+  }
+
+  int inConstruction() {
+    if (DebugMode.debugmode) {
+      return 1;
+    }
+    return 0;
   }
 
   @override
@@ -41,54 +58,53 @@ class _HomeState extends State<Home> {
               },
               icon: Icon(Icons.settings),
             ),
-            if (DebugMode.debugmode)
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'debug_menu');
-                },
-                icon: Icon(Icons.android),
-              ),
           ],
           automaticallyImplyLeading: false,
         ),
 
-        /*bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: Colors.blue,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.book),
-            icon: Icon(Icons.book_outlined),
-            label: "История",
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.book),
-            icon: Icon(Icons.book_outlined),
-            label: "Русск. яз.",
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.book),
-            icon: Icon(Icons.book_outlined),
-            label: "Бел. яз.",
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.calculate),
-            icon: Icon(Icons.calculate_outlined),
-            label: "Математика",
-          ),
-        ],
-      ),*/
+        bottomNavigationBar:
+            <Widget>[
+              Column(mainAxisSize: MainAxisSize.min),
+              NavigationBar(
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    currentPageIndex = index;
+                  });
+                },
+                indicatorColor: Colors.blue,
+                selectedIndex: currentPageIndex,
+                destinations: <Widget>[
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.book),
+                    icon: Icon(Icons.book_outlined),
+                    label: "История",
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.book),
+                    icon: Icon(Icons.book_outlined),
+                    label: "Языки",
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.calculate),
+                    icon: Icon(Icons.calculate_outlined),
+                    label: "Математика",
+                  ),
+                  if (DebugMode.debugmode)
+                    NavigationDestination(
+                      selectedIcon: Icon(Icons.android),
+                      icon: Icon(Icons.android_outlined),
+                      label: "Debug_menu",
+                    ),
+                ],
+              ),
+            ][inConstruction()],
         body:
             <Widget>[
               HystoryHome(),
-              Column(children: [RussianHome()]),
+              LanguagesHome(),
               Column(children: [Text("$currentPageIndex")]),
-              Column(children: [Text("$currentPageIndex")]),
+              DebugMenu(),
+              
             ][currentPageIndex],
       ),
     );

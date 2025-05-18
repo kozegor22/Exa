@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/hystory/home/actions/go_to_learned_list.dart';
+import 'package:flutter_application_1/pages/hystory/home/actions/go_to_stats.dart';
 import 'package:flutter_application_1/pages/hystory/home/actions/how_it_works.dart';
 import 'package:flutter_application_1/pages/hystory/home/actions/learn_myself.dart';
 import 'package:flutter_application_1/pages/hystory/home/actions/learn_random.dart';
@@ -34,8 +35,9 @@ class HystoryHome extends StatelessWidget {
           child: Column(children: [TestMyself(), TestRandom()]),
         ),
         Padding(padding: const EdgeInsets.all(8.0), child: GoToLearnedList()),
+        Padding(padding: const EdgeInsets.only(left: 8.0),child: GoToStats(),),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.all( 8.0),
           child: HowItWorks(),
         ),
       ],

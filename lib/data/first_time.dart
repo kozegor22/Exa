@@ -5,7 +5,7 @@ class FirstTime {
 
   static Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
-    firstTime = prefs.getBool('first_time') ?? false;
+    firstTime = prefs.getBool('first_time') ?? true;
   }
 
   static Future<void> save(bool newfirstTime) async {

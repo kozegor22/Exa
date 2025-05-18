@@ -103,12 +103,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
                   Text(
                     "Я приложение помощник и помогу подготовиться тебу к экзаменам.\n"
-                    "Но приложение использует ZukijourneyAPI для обработки ответов.\n"
-                    "Который тебе придётся взять в их дискорде во вкладке Info_panels.\n",
+                    "Приложение использует ZukijourneyAPI для обработки ответов,"
+                    "который тебе придётся взять в их дискорде во вкладке Info_panels.\n",
                     style: TextStyle(fontSize: 18, height: 1.4),
                   ),
                 ],

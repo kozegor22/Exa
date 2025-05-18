@@ -6,14 +6,14 @@ class HystoryLearned {
   static Future<void> loadLearned() async {
     final prefs = await SharedPreferences.getInstance();
     for (int i = 0; i < hystoryLearned.length; i++) {
-      hystoryLearned[i] = prefs.getBool('learned_$i') ?? false;
+      hystoryLearned[i] = prefs.getBool('learned_hystory_$i') ?? false;
     }
   }
 
   static Future<void> saveLearned() async {
     final prefs = await SharedPreferences.getInstance();
     for (int i = 0; i < hystoryLearned.length; i++) {
-      await prefs.setBool('learned_$i', hystoryLearned[i]);
+      await prefs.setBool('learned_hystory_$i', hystoryLearned[i]);
     }
   }
 }

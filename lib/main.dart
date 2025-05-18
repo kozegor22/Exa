@@ -13,6 +13,7 @@ void main() {
   ApiKey.load;
   HystoryLearned.loadLearned();
   FirstTime.load();
+  
 }
 
 class MyApp extends StatefulWidget {
@@ -22,14 +23,14 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-Widget showWelcomeScreen(bool firstTime) {
-  if (firstTime) {
-    return WelcomeScreen();
-  }
-  return Home();
-}
-
 class _MyAppState extends State<MyApp> {
+  Widget showWelcomeScreen(bool firstTime) {
+    if (firstTime) {
+      return WelcomeScreen();
+    }
+    return Home();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       home: showWelcomeScreen(FirstTime.firstTime),
       routes: {
