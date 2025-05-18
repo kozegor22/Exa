@@ -19,18 +19,18 @@ class _ScorePageState extends State<ScorePage>
   late final AnimationController _controller;
   String grade(int score, id) {
     setState(() {
-      HystoryStatistics.hystoryStats[id] == score;
+      HystoryStatistics.hystoryStats[id] = score;
       HystoryStatistics.save();
     });
     if (score >= 85) {
       setState(() {
-        HystoryLearned.hystoryLearned[id] == true;
+        HystoryLearned.hystoryLearned[id] = true;
         HystoryLearned.saveLearned();
       });
       return "Замечательно ^_^";
     } else if (score >= 75 && score <= 84) {
       setState(() {
-        HystoryLearned.hystoryLearned[id] == true;
+        HystoryLearned.hystoryLearned[id] = true;
         HystoryLearned.saveLearned();
       });
       return "Хорошо :)";

@@ -13,6 +13,7 @@ class _StatisticsState extends State<Statistics> {
   void initState() {
     super.initState();
     HystoryStatistics.load();
+    setState(() {});
   }
 
   @override

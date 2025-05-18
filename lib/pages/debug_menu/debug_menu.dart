@@ -137,11 +137,10 @@ class _DebugMenuState extends State<DebugMenu> {
                           } else {
                             setState(() {
                               HystoryStatistics.hystoryStats[int.parse(
-                                    input.text,
-                                  )] ==
-                                  int.parse(input1.text);
-                              HystoryStatistics.save();
+                                input.text,
+                              )] = int.parse(input1.text);
                             });
+                            HystoryStatistics.save();
                           }
                         },
                         child: Text("Ок"),
