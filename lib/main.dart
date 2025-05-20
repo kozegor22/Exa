@@ -4,6 +4,7 @@ import 'package:flutter_application_1/data/first_time.dart';
 import 'package:flutter_application_1/data/hystory_learned.dart';
 import 'package:flutter_application_1/pages/debug_menu/debug_menu.dart';
 import 'package:flutter_application_1/pages/home.dart';
+import 'package:flutter_application_1/pages/hystory/last_answers/hystory_last_answers_page.dart';
 import 'package:flutter_application_1/pages/hystory/learned_list.dart';
 import 'package:flutter_application_1/pages/settings/settings.dart';
 import 'package:flutter_application_1/pages/welcome_screen/welcome_screen.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
         'settings': (context) => Settings(),
         'debug_menu': (context) => DebugMenu(),
         'welcome_screen': (context) => WelcomeScreen(),
+        'hystory_last_answers_page': (context) => HystoryLastAnswersPage(),
       },
     );
   }

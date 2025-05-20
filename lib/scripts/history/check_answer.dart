@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/hystory_best_answers.dart';
+import 'package:flutter_application_1/data/hystory_last_answers.dart';
 import 'package:flutter_application_1/data/hystory_statistics.dart';
 import 'package:flutter_application_1/pages/hystory/results/results.dart';
 import 'package:flutter_application_1/scripts/history/get_ai_responce.dart';
@@ -68,5 +69,15 @@ Future<void> checkAnswer(
     HystoryStatistics.hystoryStats[id - 1] = score;
     HystoryStatistics.save();
   }
+  HystoryLastAnswers.load();
+  for (int i = 9; i > 0; i++) {
+    HystoryLastAnswers.feedbacks[i] = HystoryLastAnswers.feedbacks[i - 1];
+    HystoryLastAnswers.scores[i] = HystoryLastAnswers.scores[i - 1];
+    HystoryLastAnswers.ticketIds[i] = HystoryLastAnswers.ticketIds[i - 1];
+  }
+  HystoryLastAnswers.feedbacks[0] = aifeedback;
+  HystoryLastAnswers.scores[0] = score;
+  HystoryLastAnswers.ticketIds[0] = id;
+  HystoryLastAnswers.save();
   return;
 }
