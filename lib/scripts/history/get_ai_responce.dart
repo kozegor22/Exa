@@ -34,73 +34,67 @@ Future<List<String>> getAiResponce(
       requestFailed = true;
       showDialog(
         context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text("Неверный API ключ"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'settings');
-                  },
-                  child: Text("Настройки"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ок"),
-                ),
-              ],
+        builder: (context) => AlertDialog(
+          title: Text("Неверный API ключ"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'settings');
+              },
+              child: Text("Настройки"),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Ок"),
+            ),
+          ],
+        ),
       );
     } else {
       requestFailed = true;
       showDialog(
         context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text("${e.statusCode}"),
-              content: Text(
-                "${e.message}"
-                "Произошла неиожиданная ошибка",
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ок"),
-                ),
-              ],
+        builder: (context) => AlertDialog(
+          title: Text("${e.statusCode}"),
+          content: Text(
+            "${e.message}"
+            "Произошла неиожиданная ошибка",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Ок"),
             ),
+          ],
+        ),
       );
     }
   } on TimeoutException {
     showDialog(
-        context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text("TimeoutExeption"),
-              content: Text(
-                
-                "Произошла неиожиданная ошибка",
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ок"),
-                ),
-              ],
-            ),
-      );
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("TimeoutExeption"),
+        content: Text("Произошла неиожиданная ошибка"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Ок"),
+          ),
+        ],
+      ),
+    );
   }
-  List<String> feedback = List.filled(
-    completion.choices[0].message.content!.length,
-    "",
-  );
   if (requestFailed == false) {
+    List<String> feedback = List.filled(
+      completion.choices[0].message.content!.length,
+      "",
+    );
     for (int i = 0; i < completion.choices[0].message.content!.length; i++) {
       feedback[i] = completion.choices[0].message.content![i].text!;
     }
