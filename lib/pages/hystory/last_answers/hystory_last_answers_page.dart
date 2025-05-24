@@ -13,7 +13,7 @@ class _HystoryLastAnswersPageState extends State<HystoryLastAnswersPage> {
   @override
   void initState() {
     super.initState();
-    HystoryLastAnswers.load();
+    //HystoryLastAnswers.load();
     setState(() {});
   }
 

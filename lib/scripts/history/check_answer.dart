@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/hystory_best_answers.dart';
 import 'package:flutter_application_1/data/hystory_last_answers.dart';
@@ -50,27 +51,14 @@ Future<void> checkAnswer(
   } else {
     score = int.parse(aifeedback[0]);
   }
-  Navigator.of(context, rootNavigator: true).pop();
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder:
-          (context) => Results(
-            id: id,
-            score: score,
-            inputType: inputType,
-            feedback: aifeedback,
-          ),
-    ),
-  );
   if (HystoryStatistics.hystoryStats[id - 1] < score) {
     HystoryBestAnswers.hystoryBestAnswers[id - 1] = aifeedback;
     HystoryBestAnswers.save();
     HystoryStatistics.hystoryStats[id - 1] = score;
     HystoryStatistics.save();
   }
-  HystoryLastAnswers.load();
-  for (int i = 9; i > 0; i++) {
+  await HystoryLastAnswers.load();
+  for (int i = HystoryLastAnswers.feedbacks.length - 1; i > 0; i--) {
     HystoryLastAnswers.feedbacks[i] = HystoryLastAnswers.feedbacks[i - 1];
     HystoryLastAnswers.scores[i] = HystoryLastAnswers.scores[i - 1];
     HystoryLastAnswers.ticketIds[i] = HystoryLastAnswers.ticketIds[i - 1];
@@ -79,5 +67,18 @@ Future<void> checkAnswer(
   HystoryLastAnswers.scores[0] = score;
   HystoryLastAnswers.ticketIds[0] = id;
   HystoryLastAnswers.save();
+  Navigator.of(context, rootNavigator: true).pop();
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => Results(
+        id: id,
+        score: score,
+        inputType: inputType,
+        feedback: aifeedback,
+      ),
+    ),
+  );
+
   return;
 }
