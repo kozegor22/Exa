@@ -168,7 +168,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    launchUrl(Uri.parse('https://github.com'));
+                    launchUrl(Uri.parse('https://github.com/kozegor22/Exa/tree/main'));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
