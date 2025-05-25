@@ -69,18 +69,20 @@ class Fakecheckans extends StatelessWidget {
                   HystoryLastAnswers.scores[0] = int.parse(input1.text);
                   HystoryLastAnswers.ticketIds[0] = int.parse(input.text);
                   HystoryLastAnswers.save();
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Results(
-                        id: int.parse(input.text),
-                        score: int.parse(input1.text),
-                        inputType: false,
-                        feedback: [input2.text],
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Results(
+                          id: int.parse(input.text),
+                          score: int.parse(input1.text),
+                          inputType: false,
+                          feedback: [input2.text],
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
                 child: Text("ok"),
               ),

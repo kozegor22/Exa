@@ -77,7 +77,7 @@ Future<List<String>> getAiResponce(
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("TimeoutExeption"),
+        title: Text("TimeoutExсeption"),
         content: Text("Произошла неиожиданная ошибка"),
         actions: [
           TextButton(
