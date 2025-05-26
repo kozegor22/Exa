@@ -23,7 +23,7 @@ class _LearnRandomState extends State<LearnRandom> {
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: () async {
         bool alllearned = true;
-        for (int i = 1; i < 26; i++) {
+        for (int i = 0; i < 25; i++) {
           if (HystoryLearned.hystoryLearned[i] == false) {
             alllearned = false;
             break;
